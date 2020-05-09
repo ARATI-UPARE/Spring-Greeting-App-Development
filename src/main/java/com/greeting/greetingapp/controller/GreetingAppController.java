@@ -1,5 +1,7 @@
 package com.greeting.greetingapp.controller;
 
+import com.greeting.greetingapp.service.GreetingAppService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,13 +9,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class GreetingAppController {
 
-    public String message ;
+    @Autowired
+    GreetingAppService greetingAppService;
+
+    private String message ;
     public String getMessage(String name) {
         return this.message = "Hello! Welcome to Greetings Application "+name;
     }
+
     @GetMapping("/greetings")
     public ResponseEntity getGreeting(){
-        return new ResponseEntity(getMessage("ARATI"), HttpStatus.OK);
+        return new ResponseEntity(greetingAppService.getMessage(), HttpStatus.OK);
     }
 
     @PostMapping("/greetings/{name}")
