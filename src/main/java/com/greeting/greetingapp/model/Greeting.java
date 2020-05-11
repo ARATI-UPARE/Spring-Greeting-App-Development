@@ -14,20 +14,15 @@ public class Greeting {
     private String lastName;
     private String message;
 
+    public Greeting() {
+    }
+
     public Greeting(long id, String firstName,String lastName,String message) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.message = message;
     }
-
-    public Greeting(long ld, String name, String message) {
-        this.id = id;
-        this.name = name;
-        this.message = message;
-
-    }
-
     public long getId() {
         return id;
     }

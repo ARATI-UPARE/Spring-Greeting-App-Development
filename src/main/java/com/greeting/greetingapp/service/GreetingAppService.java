@@ -5,6 +5,8 @@ import com.greeting.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GreetingAppService {
     @Autowired
@@ -20,8 +22,6 @@ public class GreetingAppService {
     public String greetingMessage(String name)
     {
         this.message = "Hello ! "+name;
-        Greeting greeting = new Greeting(greetingRepository.count() + 1, name, message);
-        greetingRepository.save(greeting);
         return message;
     }
 
@@ -31,5 +31,9 @@ public class GreetingAppService {
         Greeting greeting = new Greeting(greetingRepository.count() + 1, firstName,lastName, message);
         greetingRepository.save(greeting);
         return message;
+    }
+
+    public Optional<Greeting> getById(int id) {
+        return greetingRepository.findById(id);
     }
 }
