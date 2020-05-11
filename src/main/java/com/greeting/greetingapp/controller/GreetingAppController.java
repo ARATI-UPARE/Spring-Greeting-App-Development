@@ -17,29 +17,29 @@ public class GreetingAppController {
     @GetMapping("/greetings")
     public ResponseEntity getGreeting(){
 
-        return new ResponseEntity(greetingAppService.getMessage(), HttpStatus.OK);
+        return new ResponseEntity(greetingAppService.greetingMessage(), HttpStatus.OK);
     }
 
     @PutMapping("/greetings/update/{name}")
     public ResponseEntity updateGreetings(@PathVariable String name){
-        return new ResponseEntity(greetingAppService.getMessage(name),HttpStatus.ACCEPTED);
+        return new ResponseEntity(greetingAppService.greetingMessage(name),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("greetings/delete/{name}")
     public ResponseEntity deleteGreeting(@PathVariable String name){
-        return new ResponseEntity(greetingAppService.getMessage(name)+"  Deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity(greetingAppService.greetingMessage(name)+"  Deleted", HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/greetings/userdata/{name}")
     public ResponseEntity postGreeting(@PathVariable String name) {
-        return new ResponseEntity(greetingAppService.getMessage(name), HttpStatus.CREATED);
+        return new ResponseEntity(greetingAppService.greetingMessage(name), HttpStatus.CREATED);
 
     }
 
     @PostMapping("/greetings/userdata/{firstName}/{lastName}")
     public ResponseEntity postGreeting(@PathVariable String firstName,
                                          @PathVariable String lastName) {
-            return new ResponseEntity(greetingAppService.userData(firstName, lastName), HttpStatus.CREATED);
+            return new ResponseEntity(greetingAppService.greetingMessage(firstName, lastName), HttpStatus.CREATED);
 
     }
 

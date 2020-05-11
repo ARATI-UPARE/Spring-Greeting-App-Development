@@ -1,27 +1,35 @@
 package com.greeting.greetingapp.service;
 
-import org.springframework.http.HttpStatus;
+import com.greeting.greetingapp.model.Greeting;
+import com.greeting.greetingapp.repository.GreetingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GreetingAppService {
+    @Autowired
+    private GreetingRepository greetingRepository;
 
     private String message;
-    private String firstName;
-    private String lastName;
 
-    public String getMessage() {
-
-        return "Hello World !";
+    public String greetingMessage() {
+        this.message = "Hello World !";
+        return message;
     }
 
-    public String getMessage(String name)
+    public String greetingMessage(String name)
     {
-        return this.message = "Hello ! "+name;
+        this.message = "Hello ! "+name;
+        Greeting greeting = new Greeting(greetingRepository.count() + 1, name, message);
+        greetingRepository.save(greeting);
+        return message;
     }
 
-    public String userData(String firstName, String lastName) {
+    public String greetingMessage(String firstName, String lastName) {
 
-            return ("Hello ! " + firstName + " " + lastName);
+        this.message =("Hello ! " + firstName + " " + lastName);
+        Greeting greeting = new Greeting(greetingRepository.count() + 1, firstName,lastName, message);
+        greetingRepository.save(greeting);
+        return message;
     }
 }
