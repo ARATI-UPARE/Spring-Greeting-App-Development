@@ -7,19 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.util.List;
-
 @RestController
-public class GreetingAppController {
+public class GreetingAppController{
 
     @Autowired
     GreetingAppService greetingAppService;
 
     @GetMapping("/greetings")
     public ResponseEntity getGreeting(){
-
-        return new ResponseEntity(greetingAppService.greetingMessage(), HttpStatus.OK);
+        return new ResponseEntity(greetingAppService.greetingMessage(),HttpStatus.OK);
     }
 
     @PutMapping("/greetings/update/{name}")
@@ -29,19 +25,18 @@ public class GreetingAppController {
 
     @DeleteMapping("greetings/delete/{name}")
     public ResponseEntity deleteGreeting(@PathVariable String name){
-        return new ResponseEntity(greetingAppService.greetingMessage(name)+"  Deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity(greetingAppService.greetingMessage(name)+"  Deleted",HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/greetings/message/{name}")
-    public ResponseEntity postGreeting(@PathVariable String name) {
-        return new ResponseEntity(greetingAppService.greetingMessage(name), HttpStatus.CREATED);
+    public ResponseEntity postGreeting(@PathVariable String name){
+        return new ResponseEntity(greetingAppService.greetingMessage(name),HttpStatus.CREATED);
 
     }
 
     @PostMapping("/greetings/message/{firstName}/{lastName}")
-    public ResponseEntity postGreeting(@PathVariable String firstName,
-                                         @PathVariable String lastName) {
-            return new ResponseEntity(greetingAppService.greetingMessage(firstName, lastName), HttpStatus.CREATED);
+    public ResponseEntity postGreeting(@PathVariable String firstName,@PathVariable String lastName){
+        return new ResponseEntity(greetingAppService.greetingMessage(firstName,lastName),HttpStatus.CREATED);
     }
 
     @GetMapping("/greetings/message/id/{id}")
@@ -50,8 +45,13 @@ public class GreetingAppController {
     }
 
    @GetMapping("/greetings/message/all")
-    public ResponseEntity<List<Greeting>> findAllMessages(){
-        return  new ResponseEntity<>(greetingAppService.allGreetingMessages(),HttpStatus.OK);
+    public ResponseEntity findAllMessages(){
+        return  new ResponseEntity(greetingAppService.allGreetingMessages(),HttpStatus.OK);
    }
+
+    @PostMapping("/greeting/message/update/{id}")
+    public ResponseEntity greetingMessageWithName(@RequestBody Greeting greeting,@PathVariable("id") int id) {
+        return new ResponseEntity(greetingAppService.updateMessage(greeting,id),HttpStatus.OK);
+    }
 
 }
