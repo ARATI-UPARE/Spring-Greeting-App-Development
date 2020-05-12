@@ -1,5 +1,6 @@
 package com.greeting.greetingapp.controller;
 
+import com.greeting.greetingapp.model.Greeting;
 import com.greeting.greetingapp.service.GreetingAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 public class GreetingAppController {
@@ -46,5 +48,10 @@ public class GreetingAppController {
     public ResponseEntity getGreetings(@PathVariable int id){
         return  new ResponseEntity(greetingAppService.getById(id),HttpStatus.OK);
     }
+
+   @GetMapping("/greetings/message/all")
+    public ResponseEntity<List<Greeting>> findAllMessages(){
+        return  new ResponseEntity<>(greetingAppService.allGreetingMessages(),HttpStatus.OK);
+   }
 
 }
